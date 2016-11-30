@@ -14,7 +14,9 @@ HamiltonCycle::HamiltonCycle() {
 //	cout << verticesFor128[2].getDistance(verticesFor128[4]);
 
 	//startHillClimbing();
+	
 	startNearestNeighborWithTweak();
+	calcShortestPathNNMethod(verticesFor16);
 }
 
 HamiltonCycle::Path::Path(){
@@ -56,11 +58,26 @@ void HamiltonCycle::startNearestNeighbor(){
 void HamiltonCycle::startNearestNeighborWithTweak() {
 
 	path = Path(verticesFor16);
-	Path first = calcShortestPathNNMethod(verticesFor128);
+	Path first = calcShortestPathNNMethod(verticesFor16);
 	cout << first.getTotalDistance();
 	stringstream ss;
 	cout << " ---- shortest path: " << first.getTotalDistance() << endl;
-	ss << "Path taken: ";
+	ss << "Path taken: " << endl;
+	
+	//cout << "SIZE FOR VERTICIES 128: " << verticesFor128.size() << ". Size for first: " << first.path.size() << ". size for adj path: " << (getAdjPath(first)).path.size() << endl;
+	Path q;
+	std::vector<Path> allPaths;
+	time_t startTime, endTime;
+	time(&startTime);
+	for (int i = 0; i < MAX_RESTARTS; i++) {
+		q = calcShortestPathNNMethod(getAdjPath(first));
+		double qDist = q.getTotalDistance(), firstDist = first.getTotalDistance();
+		if (qDist < firstDist)
+			first = q;
+	}
+	time(&endTime);
+	//std::sort(allPaths.begin(), allPaths.end(), igetTotalDistance());
+
 	int counter = 0;
 	for each (Vertex var in first.path) {
 		ss << " -> " << var.getName();
@@ -72,24 +89,12 @@ void HamiltonCycle::startNearestNeighborWithTweak() {
 			counter++;
 	}
 	cout << ss.str() << endl;
-	
-	//cout << "SIZE FOR VERTICIES 128: " << verticesFor128.size() << ". Size for first: " << first.path.size() << ". size for adj path: " << (getAdjPath(first)).path.size() << endl;
-	Path q;
-	std::vector<Path> allPaths;
-	for (int i = 0; i < MAX_RESTARTS; i++) {
-		q = calcShortestPathNNMethod(getAdjPath(first));
-		double qDist = q.getTotalDistance(), firstDist = first.getTotalDistance();
-		if (qDist < firstDist)
-			first = q;
-	}
-	//std::sort(allPaths.begin(), allPaths.end(), igetTotalDistance());
-
-	
 	//path.getTotalDistance()
-	 
-	printVertex(first.path);
+	double seconds = difftime(endTime, startTime);
+	//printVertex(first.path);
 	cout << first.getTotalDistance() << endl;
-	cout << "Total size: " << first.path.size();
+	cout << "Total size: " << first.path.size() <<endl;
+	cout << "Total time; in seconds" << seconds << endl;
 
 
 }
@@ -213,7 +218,7 @@ HamiltonCycle::Path HamiltonCycle::calcShortestPathNNMethod(Path path) {
 		foundOne = false;
 
 	}
-
+	newPath.path.push_back(newPath.path.at(0));
 
 	//cout << "FINISHED";
 
@@ -223,14 +228,18 @@ HamiltonCycle::Path HamiltonCycle::calcShortestPathNNMethod(Path path) {
 
 void HamiltonCycle::startHillClimbing(){
 
+	time_t startTime, endTime;
+	
 
 
 	path = Path(verticesFor128);
 	printVertex(path.path);
 	cout << path.getTotalDistance();
+	time(&startTime);
 	std::vector<HamiltonCycle::Path> q = getShortestPaths(path);
 
 	Path f;
+	
 	for (int i = 0; i < q.size(); i++) {
 		if (i == 0)
 			f = (q[0]);
@@ -244,8 +253,11 @@ void HamiltonCycle::startHillClimbing(){
 			}
 		}
 	}
+	time(&endTime);
+	double seconds = difftime(endTime, startTime);
 	cout << "---------- SHORTEST PATH NOW --------" << endl;
 	cout << f.getTotalDistance() << endl;
+	cout << "Time take; " << seconds << endl;
 	//printVertex(f.path);
 
 
@@ -272,7 +284,7 @@ HamiltonCycle::Path HamiltonCycle::findShortestPath(Path &currPath)
 
 	while (counter < MAX_ITERATIONS) {
 		adjRoute = Path(getAdjPath(currPath));
-		adjRoute = calcShortestPathNNMethod(adjRoute);
+		//adjRoute = calcShortestPathNNMethod(adjRoute);
 		if (adjRoute.getTotalDistance() < currPath.getTotalDistance()) {
 			
 			ss << "<= found, procceding. Old distance: " << currPath.getTotalDistance() << ". New Dist:" << adjRoute.getTotalDistance() << endl;
@@ -289,9 +301,9 @@ HamiltonCycle::Path HamiltonCycle::findShortestPath(Path &currPath)
 	}
 	cout << " ---- shortest path: " << currPath.getTotalDistance() << endl;
 	ss << "Path taken: ";
-	for each (Vertex var in currPath.path){
-		ss << " -> " << var.getName();
-	}
+	//for each (Vertex var in currPath.path){
+	//	ss << " -> " << var.getName();
+	//}
 	//cout << ss.str() << endl;
 	return currPath;
 }

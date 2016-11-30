@@ -1,10 +1,10 @@
-﻿  Source.cpp
+﻿  HamiltonCycle.cpp
+c:\users\jozef\onedrive\dokument\visual studio 2015\projects\hamiltoncycle\hamiltoncycle\hamiltoncycle.cpp(41): warning C4018: '<': signed/unsigned mismatch
+c:\users\jozef\onedrive\dokument\visual studio 2015\projects\hamiltoncycle\hamiltoncycle\hamiltoncycle.cpp(241): warning C4018: '<': signed/unsigned mismatch
+c:\users\jozef\onedrive\dokument\visual studio 2015\projects\hamiltoncycle\hamiltoncycle\hamiltoncycle.cpp(312): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jozef\onedrive\dokument\visual studio 2015\projects\hamiltoncycle\hamiltoncycle\hamiltoncycle.cpp(333): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   Compiling...
-  HamiltonCycle.cpp
-c:\users\jozef\onedrive\dokument\visual studio 2015\projects\hamiltoncycle\hamiltoncycle\hamiltoncycle.cpp(41): warning C4018: '<': signed/unsigned mismatch
-c:\users\jozef\onedrive\dokument\visual studio 2015\projects\hamiltoncycle\hamiltoncycle\hamiltoncycle.cpp(234): warning C4018: '<': signed/unsigned mismatch
-c:\users\jozef\onedrive\dokument\visual studio 2015\projects\hamiltoncycle\hamiltoncycle\hamiltoncycle.cpp(302): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\jozef\onedrive\dokument\visual studio 2015\projects\hamiltoncycle\hamiltoncycle\hamiltoncycle.cpp(323): warning C4018: '<': signed/unsigned mismatch
+  Source.cpp
   Generating Code...
   HamiltonCycle.vcxproj -> C:\Users\jozef\onedrive\dokument\visual studio 2015\Projects\HamiltonCycle\Debug\HamiltonCycle.exe

@@ -5,8 +5,8 @@
 #include <sstream>
 
 class HamiltonCycle {
-	 const int MAX_ITERATIONS = 500;
-	 const int MAX_RESTARTS = 50;
+	 const int MAX_ITERATIONS = 1;
+	 const int MAX_RESTARTS = 1;
 private:
 	double totalDistance;
 public:
